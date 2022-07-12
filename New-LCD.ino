@@ -39,7 +39,7 @@ void loop(){
   lcd.clear();
   //lcd.off();
   delay(2000);
-  lcd.createChar(uint8_t 0x80 , "Hello");
+  //lcd.createChar(uint8_t 0x80 , "Hello");
   //lcd.on();
   //lcd.backlight();
   //delay(2000);
