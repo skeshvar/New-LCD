@@ -7,6 +7,7 @@
 
 // Shah
 #include "SSD1311.h"
+#include "NewhavenOLED.h"
 // include additional display driver implementations here...
 
 #endif
