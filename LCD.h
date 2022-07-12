@@ -4,10 +4,7 @@
 
 #include "LCDStream.h"
 #include "LCD_ST7032.h"
-
-// Shah
-#include "SSD1311.h"
-//#include "NewhavenOLED.h"
+#include "LCD_SSD1311.h"
 // include additional display driver implementations here...
 
 #endif
