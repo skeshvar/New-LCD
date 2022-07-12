@@ -1,14 +1,14 @@
-#include "LCD_SSD1311.h"
+#include "SSD1311.h"
 
 
-LCD_SSD1311::LCD_SSD1311(uint8_t pin_rst, uint8_t pin_rs, uint8_t pin_cs) :
+SSD1311::SSD1311(uint8_t pin_rst, uint8_t pin_rs, uint8_t pin_cs) :
   _rst(pin_rst), _rs(pin_rs), _cs(pin_cs)
 {
   _spi_settings = SPISettings(500000, LSBFIRST, SPI_MODE3);
 }
 
 
-void LCD_SSD1311::init(){
+void SSD1311::init(){
   pinMode(_rst, OUTPUT);
   pinMode(_cs, OUTPUT);
   pinMode(_rs, OUTPUT);
@@ -19,27 +19,27 @@ void LCD_SSD1311::init(){
 
   digitalWriteFast(_rst, LOW);
   delay(2);
-  send(0x30, COMMAND); // wakeup
+  //send(0x30, COMMAND); // wakeup
   delay(2);
   digitalWriteFast(_rst, HIGH);
+  
+  
+  command(0x3A);    //Function set: N=1 BE=0 RE=1 IS=0
+  command(0x09);    //4-line mode
+  command(0x05);    //view 0
+  command(0x38);    //FunctionSet: N=1 DH=0 RE=0 IS=0
+  command(0x3A);    //FunctionSet: N=1 BE=0 
+  command(0x72);    //ROM selection
+  data(0x01);       //ROM_A = 0x00, ROM_B = 0x04, ROM_C = 0x0c
+  command(0x38);    //FunctionSet: N=1, DH=0, IS=0
+  command(0x0C);    //Display blink cursor on
+  command(0x01);    //Clear Display
 
-  send(0x30, COMMAND); // wakeup
-  send(0x30, COMMAND); // wakeup
-
-  send(0x39, COMMAND); // function set
-  send(0x14, COMMAND);   // internal osc frequency
-  send(0x56, COMMAND);   // power control
-  send(0x6D, COMMAND);   // follower control
-
-  send(0x70, COMMAND);   // contrast
-  send(0x0C, COMMAND);   // display on
-  send(0x06, COMMAND);   // entry mode
-  send(0x01, COMMAND);   // clear
-
+  
   delay(10);
 }
 
-void LCD_ST7032::begin(uint8_t rows, uint8_t cols, uint8_t dotsize){
+void SSD1311::begin(uint8_t rows, uint8_t cols, uint8_t dotsize){
   SPI.begin();
   init();
   // do we need to call parent begin??
@@ -48,7 +48,7 @@ void LCD_ST7032::begin(uint8_t rows, uint8_t cols, uint8_t dotsize){
   setCursor(0,0);
 }
 
-void LCD_ST7032::send(uint8_t value, uint8_t mode){
+void SSD1311::send(uint8_t value, uint8_t mode){
   // send mode => RS pin
   // LOW: command; HIGH: data
   bool send_mode = ( mode == DATA );
