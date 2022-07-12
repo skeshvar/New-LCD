@@ -1,12 +1,14 @@
-#include "LCD_ST7032.h"
+#include "LCD_SSD1311.h"
 
-LCD_ST7032::LCD_ST7032(uint8_t pin_rst, uint8_t pin_rs, uint8_t pin_cs) :
+
+LCD_SSD1311::LCD_SSD1311(uint8_t pin_rst, uint8_t pin_rs, uint8_t pin_cs) :
   _rst(pin_rst), _rs(pin_rs), _cs(pin_cs)
 {
-  _spi_settings = SPISettings(5000000, MSBFIRST, SPI_MODE0);
+  _spi_settings = SPISettings(500000, LSBFIRST, SPI_MODE3);
 }
 
-void LCD_ST7032::init(){
+
+void LCD_SSD1311::init(){
   pinMode(_rst, OUTPUT);
   pinMode(_cs, OUTPUT);
   pinMode(_rs, OUTPUT);
