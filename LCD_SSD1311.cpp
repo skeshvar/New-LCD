@@ -1,8 +1,9 @@
 #include "LCD_SSD1311.h"
 
 
-LCD_SSD1311::LCD_SSD1311(uint8_t pin_rst, uint8_t pin_rs, uint8_t pin_cs) :
-  _rst(pin_rst), _rs(pin_rs), _cs(pin_cs)
+LCD_SSD1311::LCD_SSD1311(uint8_t pin_cs) :
+  //_rst(pin_rst), _rs(pin_rs), 
+  _cs(pin_cs)
 {
   _spi_settings = SPISettings(500000, LSBFIRST, SPI_MODE3);
 }
@@ -57,8 +58,20 @@ void LCD_SSD1311::setCursor(uint8_t col, uint8_t row)
 {
   const int row_lenght = 0x20;
   int loc;
-  loc = row*row_lenght+ col;
+  loc = row*row_lenght + col;
   send(0x80 | loc, 0);
   }
+
+//void LCD_SSD1311::changeBank(uint8_t op,uint8_t ro)
+//{
+//  
+//  op = op&0x3;
+//  ro = op&0x3;
+//  
+//  send(0x3A, 0);    //FunctionSet: N=1 BE=0 
+//  send(0x70 | op | ro << 2, 0);    //ROM selection
+//  //send(0x01, 1);       //ROM_A = 0x00, ROM_B = 0x04, ROM_C = 0x0c
+//  send(0x38, 0);    //FunctionSet: N=1, DH=0, IS=0
+//  }
 
   
