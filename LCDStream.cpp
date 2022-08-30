@@ -370,3 +370,4 @@ size_t LCD::write(uint8_t value)
    return 1;             // assume OK
 }
 #endif
+
