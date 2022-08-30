@@ -21,12 +21,13 @@
 class LCD_SSD1311 : public LCD
 {
 public:
-  LCD_SSD1311(uint8_t pin_cs);
+  LCD_SSD1311( uint8_t pin_cs);
 
   virtual void send(uint8_t value, uint8_t mode);
-
   virtual void begin(uint8_t cols = 8, uint8_t rows = 2, uint8_t charsize = LCD_5x8DOTS);
+  
   virtual void setCursor(uint8_t col, uint8_t row);
+  //virtual void changeBank(uint8_t op,uint8_t ro);
 
 private:
   void init();
